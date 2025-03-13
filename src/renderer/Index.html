@@ -15,8 +15,8 @@
 </head>
 <body>
     <div id="map"></div>
-        <!-- Timeline removed for now
-    <div id="timeline">
+        <!-- Character filter dropdown -->
+    <div id="timeline" class="hidden">
         <input type="range" 
                id="timelineSlider" 
                min="-20"
@@ -25,7 +25,7 @@
                list="timeline-ticks"
                step="20">
         <datalist id="timeline-ticks">
-            <option value="-20" label="All Markers"></option>
+            <option value="-20" label=""></option>
             <option value="0"></option>
             <option value="20"></option>
             <option value="40"></option>
@@ -35,7 +35,7 @@
         </datalist>
         <div id="timelineLabel"></div>
     </div> 
-    -->
+    
     <div id="controls">
         <!-- Character filter dropdown -->
         <select id="characterFilter" class="select select-bordered">

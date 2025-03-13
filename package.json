@@ -7,7 +7,9 @@
     "start": "electron .",
     "css": "postcss app.css -o src/renderer/styles/Main.css",
     "csswatch": "postcss app.css -o src/renderer/styles/Main.css --watch",
-    "build": "electron-builder"
+    "buildlinux": "electron-builder --linux",
+    "buildwin": "electron-builder --win",
+    "buildmac": "electron-builder --mac"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.11",
@@ -25,7 +27,7 @@
     ],
     "mac": {
       "category": "public.app-category.utilities",
-      "target": "dmg"
+      "target": "pkg"
     },
     "win": {
       "target": "nsis"

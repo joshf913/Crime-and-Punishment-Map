@@ -51,41 +51,40 @@ html, body {
            rounded-lg shadow-xl z-50;
 }
 
+
 /* Timeline slider styles */
 #timelineSlider {
     @apply w-full h-2 appearance-none bg-base-300 rounded-lg cursor-pointer;
+    display: none;
 }
 
 #timelineSlider::-webkit-slider-thumb {
     @apply appearance-none w-4 h-4 bg-primary rounded-full cursor-pointer;
     margin-top: -6px;
+    display: none;
 }
 
 #timelineSlider::-moz-range-thumb {
     @apply w-4 h-4 bg-primary rounded-full cursor-pointer border-0;
     margin-top: -6px;
+    display: none;
 }
 
 #timelineSlider::-webkit-slider-runnable-track {
     @apply h-2 rounded-lg bg-base-300;
+    display: none;
 }
 
 #timelineSlider::-moz-range-track {
     @apply h-2 rounded-lg bg-base-300;
+    display: none;
 }
 
 /* Timeline label styles */
 #timelineLabel {
     @apply text-center mt-2 text-sm text-base-content;
+    display: none;
 }
-
-/* Reset button styles */
-.reset-timeline-btn {
-    @apply w-full px-4 py-2 bg-secondary text-secondary-content
-           rounded-lg font-semibold text-sm hover:bg-secondary-content hover:text-secondary 
-           transition-all duration-200 cursor-pointer;
-}
-
 
 
 #controls {
