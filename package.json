@@ -6,46 +6,44 @@
   "scripts": {
     "start": "electron .",
     "css": "postcss app.css -o src/renderer/styles/Main.css",
-    "csswatch": "postcss app.css -o src/renderer/styles/Main.css --watch"
+    "csswatch": "postcss app.css -o src/renderer/styles/Main.css --watch",
+    "build": "electron-builder"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.11",
     "@tailwindcss/postcss": "^4.0.12",
-    "electron": "^28.1.0",
     "leaflet": "^1.9.4",
     "tailwindcss": "^4.0.12"
   },
   "build": {
-    "appId": "com.yourname.app",
-    "productName": "YourAppName",
+    "appId": "top.fosness.crimeandpunishmentmap",
+    "productName": "Crime and Punishment Interactive Map",
     "files": [
-      "dist/**/*",
+      "src/**/*",
       "node_modules/**/*",
       "package.json"
     ],
     "mac": {
       "category": "public.app-category.utilities",
-      "target": "dmg",
-      "icon": ""
+      "target": "dmg"
     },
     "win": {
-      "target": "nsis",
-      "icon": ""
+      "target": "nsis"
     },
     "linux": {
-      "target": "AppImage",
-      "icon": ""
+      "target": "AppImage"
     }
   },
   
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "cssnano": "^7.0.6",
     "daisyui": "^5.0.0",
     "electron-builder": "^25.1.8",
+    "electron": "^28.1.0",
     "postcss": "^8.5.3",
     "postcss-cli": "^11.0.0",
     "postcss-nested": "^7.0.2",

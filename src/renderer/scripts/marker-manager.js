@@ -133,32 +133,47 @@ class MarkerManager {
         this.currentMap = mapName;
     }
 
-    updateVisibleMarkers(timelinePosition = null) {
-        console.log(`Updating visible markers with timeline position: ${timelinePosition}`);
+    updateVisibleMarkers() {
+        this.activeMarkers.clear();
+        
+        console.log('Updating visible markers...');
+        console.log('Current character filter:', this.currentCharacterFilter);
+        console.log('Current timeline range:', this.currentTimelineRange);
     
-        this.markers[this.currentMap].forEach((markerData, markerId) => {
-            const location = markerData.data;
-            const characterMatch = this.currentCharacterFilter === 'all' || 
-                                   location.characters.includes(this.currentCharacterFilter);
-            const timelineMatch = timelinePosition === null || 
-                                  timelinePosition === -20 || // All markers case
-                                  location.timelineEvents.some(event => Math.abs(event - timelinePosition) <= 5);
+        for (const location of storyLocations.locations) {
+            const markerId = location.id;
+            const markerData = this.markers[this.currentMap].get(markerId);
+
+            if (!markerData) continue;
+    
+            // Debug: Log character data
+            console.log(`Location: ${location.id}, Characters:`, location.characters);
+    
+            // Ensure characters exist and check case-insensitive match
+            const hasCharacter = location.characters &&
+                location.characters.some(char => char.toLowerCase() === this.currentCharacterFilter.toLowerCase());
+            const characterMatch = this.currentCharacterFilter === 'all' || hasCharacter;
+    
+            // Timeline filtering logic
+            const timelineMatch = !location.date || 
+                (location.date >= this.currentTimelineRange[0] && location.date <= this.currentTimelineRange[1]);
     
             if (characterMatch && timelineMatch) {
-                // Add to map if not already there
                 if (!this.map.hasLayer(markerData.marker)) {
                     markerData.marker.addTo(this.map);
+                    console.log(`Added marker for location: ${location.id}`);
                 }
                 this.activeMarkers.add(markerId);
             } else {
-                // Remove from map completely
-                markerData.marker.remove();
+                if (this.map.hasLayer(markerData.marker)) {
+                    markerData.marker.remove();
+                    console.log(`Removed marker for location: ${location.id}`);
+                }
                 this.activeMarkers.delete(markerId);
             }
-        });
-    
-        console.log('Updated active markers:', this.activeMarkers);
+        }
     }
+    
     
 
     findMarkerById(markerId) {
@@ -297,35 +312,36 @@ class MarkerManager {
 
 
     async filterByTypes(activeFilters) {
-        console.log('filterByTypes called with:', activeFilters); // Log active filters
-    
+        console.log('filterByTypes called with:', activeFilters, 'currentCharacter:', this.currentCharacterFilter);
+        
+        // Store active filters
+        this.activeTypeFilters = activeFilters;
+        
         for (const [markerId, { marker, data: location }] of this.markers[this.currentMap].entries()) {
             const markerTypes = location.type.split(',');
             const activeTypes = markerTypes.filter(type => activeFilters[type.trim().toUpperCase()] === true);
-    
-            console.log(`Processing marker ${markerId}: types=${markerTypes}, activeTypes=${activeTypes}`);
-    
-            // Updated characterMatch logic to support multi-character markers
-            const characterMatch = this.currentCharacterFilter === 'all' ||
-                location.characters.some(character => character === this.currentCharacterFilter);
-    
+            
+            // Debug the character match
+            const hasCharacter = location.characters && location.characters.includes(this.currentCharacterFilter);
+            console.log(`Marker ${markerId} - Type/character check: types=${markerTypes}, activeTypes=${activeTypes}, hasCharacter=${hasCharacter}`);
+            
+            // Character match logic identical to updateVisibleMarkers
+            const characterMatch = this.currentCharacterFilter === 'all' || hasCharacter;
+            
             if (activeTypes.length > 0 && characterMatch) {
-                console.log(`Updating icon for marker ${markerId} with active types:`, activeTypes);
-    
                 const newIcon = await this.getDynamicIcon(activeTypes);
                 if (newIcon) {
-                    console.log('Setting new icon for marker:', markerId);
                     marker.setIcon(newIcon);
                 }
-    
+                
                 if (!this.map.hasLayer(marker)) {
-                    console.log(`Adding marker ${markerId} back to map`);
+                    console.log(`Adding marker ${markerId} back to map (type filter)`);
                     marker.addTo(this.map);
                 }
                 this.activeMarkers.add(markerId);
             } else {
                 if (this.map.hasLayer(marker)) {
-                    console.log(`Removing marker ${markerId} from map`);
+                    console.log(`Removing marker ${markerId} from map (type filter)`);
                     marker.remove();
                 }
                 this.activeMarkers.delete(markerId);

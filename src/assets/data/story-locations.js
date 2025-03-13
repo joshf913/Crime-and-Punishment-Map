@@ -91,7 +91,7 @@ const storyLocations = {
                 short: "A cramped, squalid attic room.",
                 long: "Located on the fourth floor of Kozel's house, a building owned by a German cabinetmaker, the Marmeladovs' apartment is a single, grimy room at the top of a dark staircase. The small space is filled with rags, particularly children's clothing, and is poorly furnished with only two chairs, a battered American leather sofa full of holes, and an unpainted kitchen table. A ragged sheet in one corner likely hides the family's bed. A single tallow candle provides dim lighting. Though the family has a room to themselves, it functions as a passageway, with an open door leading to the rest of Amalia Lippevechsel's flat, where other tenants are often heard drinking, playing cards, and shouting."
             },
-            characters: ["marmeladov"],
+            characters: ["marmeladov", "katerina"],
             timelineEvents: [20],
             bookExcerpt: "\"'Please take me... Kozel's House, where the yard is...'; A grimy little door at the very top of the staircase stood open. A candle stub illuminated a wretched room about ten paces long; it was completely visible from the landing. Everything was thrown about and in disorder, particularly various items of ragged children's clothing. A sheet full of holes had been stretched over the far corner. Behind it there probably stood a bed.\" (Part II, Chapter II)",
             audioFile: "",
@@ -529,6 +529,22 @@ const storyLocations = {
             characters: ["raskolnikov", "sonya"],
             timelineEvents: [20],
             bookExcerpt: "",
+            audioFile: "",
+            modernPhoto: ""
+        },
+        {
+            id: "raskolnikov_family_house",
+            name: "Lodgings of Raskolnikov's Mother and Sister",
+            type: "character_home",
+            coordinates: [-49.196064, -46.757813],
+            map: "petersburg",
+            description: {
+                short: "",
+                long: ""
+            },
+            characters: ["raskolnikov", "dunya", "pulcheria"],
+            timelineEvents: [20],
+            bookExcerpt: "\"In the first place I've found them lodgings...' 'Where?' Raskolnikov said weakly. 'Not far from here at all, Bakaleev's Tenements...' 'It's on Voznesenskii,' Razumikhin chipped in. 'Two floors of rented rooms, run by the merchant Iushin. I've been there.' 'That's right, sir, rented rooms...' 'It's the most disgusting place: filth, stench, and a dubious character; there have been incidents; God knows who lives there!..\" (Part II, Chapter V)",
             audioFile: "",
             modernPhoto: ""
         },
