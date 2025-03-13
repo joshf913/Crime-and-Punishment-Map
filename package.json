@@ -1,0 +1,54 @@
+{
+  "name": "crime-and-punishment-map",
+  "version": "1.0.0",
+  "description": "Interactive map for Crime and Punishment",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "css": "postcss app.css -o src/renderer/styles/Main.css",
+    "csswatch": "postcss app.css -o src/renderer/styles/Main.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.11",
+    "@tailwindcss/postcss": "^4.0.12",
+    "electron": "^28.1.0",
+    "leaflet": "^1.9.4",
+    "tailwindcss": "^4.0.12"
+  },
+  "build": {
+    "appId": "com.yourname.app",
+    "productName": "YourAppName",
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": "dmg",
+      "icon": ""
+    },
+    "win": {
+      "target": "nsis",
+      "icon": ""
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": ""
+    }
+  },
+  
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
+    "daisyui": "^5.0.0",
+    "electron-builder": "^25.1.8",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0",
+    "postcss-nested": "^7.0.2",
+    "postcss-preset-env": "^10.1.5"
+  }
+}

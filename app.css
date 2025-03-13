@@ -1,0 +1,336 @@
+@import "tailwindcss";
+@source "./src/renderer/*.{html,js}";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+    name: "dark";
+    default: true;
+    prefersdark: false;
+    color-scheme: "dark";
+    --color-base-100: oklch(25.33% 0.016 252.42);
+    --color-base-200: oklch(23.26% 0.014 253.1);
+    --color-base-300: oklch(21.15% 0.012 254.09);
+    --color-base-content: oklch(97.807% 0.029 256.847);
+    --color-primary: oklch(58% 0.233 277.117);
+    --color-primary-content: oklch(96% 0.018 272.314);
+    --color-secondary: oklch(65% 0.241 354.308);
+    --color-secondary-content: oklch(94% 0.028 342.258);
+    --color-accent: oklch(77% 0.152 181.912);
+    --color-accent-content: oklch(38% 0.063 188.416);
+    --color-neutral: oklch(14% 0.005 285.823);
+    --color-neutral-content: oklch(92% 0.004 286.32);
+    --color-info: oklch(74% 0.16 232.661);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(76% 0.177 163.223);
+    --color-success-content: oklch(37% 0.077 168.94);
+    --color-warning: oklch(82% 0.189 84.429);
+    --color-warning-content: oklch(41% 0.112 45.904);
+    --color-error: oklch(71% 0.194 13.428);
+    --color-error-content: oklch(27% 0.105 12.094);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+
+html, body {
+    @apply h-full m-0 p-0 bg-base-100 text-base-content;
+}
+
+#map {
+    @apply absolute top-0 left-0 w-full h-full m-0 p-0 z-10;
+}
+
+/* Timeline container styles */
+#timeline {
+    @apply fixed bottom-8 left-1/2 -translate-x-1/2
+           w-96 px-6 py-3 bg-base-100
+           rounded-lg shadow-xl z-50;
+}
+
+/* Timeline slider styles */
+#timelineSlider {
+    @apply w-full h-2 appearance-none bg-base-300 rounded-lg cursor-pointer;
+}
+
+#timelineSlider::-webkit-slider-thumb {
+    @apply appearance-none w-4 h-4 bg-primary rounded-full cursor-pointer;
+    margin-top: -6px;
+}
+
+#timelineSlider::-moz-range-thumb {
+    @apply w-4 h-4 bg-primary rounded-full cursor-pointer border-0;
+    margin-top: -6px;
+}
+
+#timelineSlider::-webkit-slider-runnable-track {
+    @apply h-2 rounded-lg bg-base-300;
+}
+
+#timelineSlider::-moz-range-track {
+    @apply h-2 rounded-lg bg-base-300;
+}
+
+/* Timeline label styles */
+#timelineLabel {
+    @apply text-center mt-2 text-sm text-base-content;
+}
+
+/* Reset button styles */
+.reset-timeline-btn {
+    @apply w-full px-4 py-2 bg-secondary text-secondary-content
+           rounded-lg font-semibold text-sm hover:bg-secondary-content hover:text-secondary 
+           transition-all duration-200 cursor-pointer;
+}
+
+
+
+#controls {
+    @apply absolute bottom-8 left-8 px-6 py-3 bg-base-100
+           rounded-lg shadow-lg z-10 w-full sm:w-auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#characterFilter {
+    @apply px-4 py-3 rounded-lg border border-base-200 
+           bg-base-300 text-base-content w-full sm:w-auto;
+    min-height: 50px;
+    overflow-y: auto;
+}
+
+
+.hidden {
+    @apply hidden;
+}
+
+#modernPhoto {
+    @apply max-w-full mt-4 rounded-lg;
+}
+
+.fit-bounds-button {
+    @apply px-4 py-2 bg-base-300 border-2 border-base-200
+           rounded-xl cursor-pointer text-lg font-sans
+           hover:bg-base-100 hover:text-base-content transition-colors;
+}
+
+.close-button {
+    @apply absolute right-4 top-4 bg-transparent border-none
+           text-3xl cursor-pointer px-3 py-2 text-base-content/70
+           hover:text-base-content transition-colors;
+}
+
+#infoPanel {
+    @apply fixed top-5 right-5 bg-base-100 p-6 rounded-xl
+           shadow-lg max-w-[320px] max-h-[80vh] overflow-y-auto
+           z-[1000] visible opacity-100 transition-opacity duration-200;
+}
+
+#infoPanel hr {
+    @apply border-0 h-[1px] bg-accent-content my-4;
+}
+
+#infoPanel.hidden {
+    @apply invisible opacity-0 pointer-events-none;
+}
+
+/* Info Panel Title */
+.location-title {
+    @apply text-2xl font-bold text-primary mb-4; /* Larger and visually distinct */
+}
+
+/* Info Panel Description */
+.location-description {
+    @apply text-base text-base-content; /* Standard styling for descriptions */
+}
+
+/* Info Panel Excerpt */
+.location-excerpt {
+    @apply text-sm text-base-content italic mt-4; /* Small, italicized excerpt */
+}
+
+.map-key {
+    pointer-events: auto; /* Make legend itself interactive */
+    @apply bg-base-100 p-4 rounded-lg shadow-lg w-auto max-w-xs z-[1000];
+}
+
+.map-key h4 {
+    @apply m-0 mb-3 text-base-content text-lg font-semibold;
+}
+
+/* Legend Toggle Styles */
+.legend-toggle {
+    @apply mr-2 flex items-center justify-center;
+}
+
+.legend-checkbox {
+    @apply cursor-pointer w-4 h-4 rounded-sm 
+           bg-base-300 border border-base-200
+           checked:bg-primary checked:border-primary
+           focus:outline-none focus:ring-2 focus:ring-primary/50;
+}
+
+/* Update existing legend styles for better alignment with toggles */
+.legend-item {
+    pointer-events: auto; /* Ensure each legend item absorbs events */
+    @apply flex items-center mb-3;
+}
+
+.legend-marker {
+    @apply w-6 mr-3 flex items-center justify-center;
+}
+
+.legend-text {
+    @apply text-sm text-base-content flex-grow;
+}
+
+/* Animation for toggle state changes */
+.legend-checkbox {
+    @apply transition-all duration-200;
+}
+
+/* Disabled state styling */
+.legend-item.disabled .legend-text {
+    @apply text-base-content/50;
+}
+
+.legend-item.disabled .legend-icon {
+    @apply opacity-50;
+}
+
+/* Hover state for better UX */
+.legend-item:hover {
+    @apply bg-base-200/30 rounded;
+}
+
+.context-menu-container {
+    @apply p-4 min-w-[220px] bg-base-100 rounded-lg;
+}
+
+.context-menu-container h4 {
+    @apply m-0 mb-3 text-base-content text-base;
+}
+
+.coordinates {
+    @apply mb-4;
+}
+
+.coordinates p {
+    @apply my-2 text-base text-base-content;
+}
+
+.marker-type-selector {
+    @apply mb-5;
+}
+
+.context-menu-button {
+    @apply px-4 py-2 border-none rounded-lg cursor-pointer text-sm
+           bg-base-300 text-base-content transition-colors duration-200
+           hover:bg-base-100;
+}
+
+.copy-notification {
+    @apply fixed bottom-8 right-8 bg-base-100 text-base-content
+           px-6 py-3 rounded-xl z-[1000] text-lg;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+/* Dark Mode Overrides for Leaflet Controls */
+
+/* Custom Popup Style */
+.leaflet-popup {
+    @apply bg-base-300 text-base-content border-2 border-base-300 rounded-lg;
+}
+
+.leaflet-popup-content-wrapper {
+    @apply bg-base-100 p-4 rounded-lg;
+}
+
+.leaflet-popup-content {
+    @apply text-base-content;
+}
+
+.leaflet-popup-tip {
+    @apply bg-base-300 border-2 border-base-300;
+}
+
+.leaflet-popup-close-button {
+    @apply text-base-content hover:text-base-100;
+}
+
+/* Popup Title */
+.popup-title {
+    @apply text-xl font-bold text-primary mb-2; /* Larger size, bold, primary color */
+}
+
+/* Popup Description */
+.popup-description {
+    @apply text-base text-base-content; /* Standard font size and base content color */
+}
+
+/* Leaflet Zoom Home Control Overrides */
+.leaflet-control-zoomhome {
+    @apply border-base-200;
+}
+
+.leaflet-control-zoomhome a {
+    @apply bg-base-100 text-base-content border-base-200;
+}
+
+.leaflet-control-zoomhome a:hover {
+    @apply bg-base-200;
+}
+
+/* Leaflet Layer Control Overrides */
+.leaflet-control-layers {
+    @apply bg-base-100 border-base-200 rounded-lg text-base-content;
+}
+
+.leaflet-control-layers-toggle {
+    @apply bg-base-100;
+}
+
+.leaflet-control-layers-expanded {
+    @apply bg-base-100 border-base-200;
+}
+
+.leaflet-control-layers-separator {
+    @apply border-base-200;
+}
+
+/* Override for all Leaflet controls */
+.leaflet-bar a, 
+.leaflet-bar a:hover {
+    @apply bg-base-100 text-base-content border-base-200;
+}
+
+.leaflet-bar a:hover {
+    @apply bg-base-200;
+}
+
+.leaflet-bar a.leaflet-disabled {
+    @apply bg-base-200/50 text-base-content/50 cursor-not-allowed;
+}
+
+/* Style for any svg icons inside controls */
+.leaflet-control svg {
+    @apply text-base-content fill-current;
+}
+
+/* Style for H icon in home button */
+.leaflet-control-zoomhome a span {
+    @apply text-base-content;
+}
+
+/* Add shadow to match other elements */
+.leaflet-control {
+    @apply shadow-lg;
+}
+
+.leaflet-container {
+    background-color:rgb(59, 68, 87); /* Dark blue */
+}

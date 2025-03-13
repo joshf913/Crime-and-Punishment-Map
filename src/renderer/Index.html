@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+<head>
+    <title>Crime and Punishment Map</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob: filesystem: 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdnjs.cloudflare.com">
+
+    <!-- First load Leaflet CSS -->
+    <link rel="stylesheet" href="../lib/leaflet/leaflet.css"/>
+    <!-- Then load zoomhome CSS -->
+    <link rel="stylesheet" href="../lib/leaflet.zoomhome/leaflet.zoomhome.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Custom styles (placed last so they override any library CSS) -->
+    <link rel="stylesheet" href="./styles/Main.css">
+</head>
+<body>
+    <div id="map"></div>
+     <!--
+    <div id="timeline">
+        <input type="range" 
+               id="timelineSlider" 
+               min="-20"
+               max="100" 
+               value="-20"
+               list="timeline-ticks"
+               step="20">
+        <datalist id="timeline-ticks">
+            <option value="-20" label="All Markers"></option>
+            <option value="0"></option>
+            <option value="20"></option>
+            <option value="40"></option>
+            <option value="60"></option>
+            <option value="80"></option>
+            <option value="100"></option>
+        </datalist>
+        <div id="timelineLabel"></div>
+    </div> --> <!-- Timeline has been removed, for now. -->
+    
+    <div id="controls">
+        <!-- Character filter dropdown -->
+        <select id="characterFilter" class="select select-bordered">
+            <option value="all">All Characters</option>
+            <option value="raskolnikov">'Rodya' Rodion Romanovich Raskolnikov</option>
+            <option value="pulcheria">Pulcheria Alexandrovna Raskolnikova</option>
+            <option value="sonya">'Sonya' Sofya Semyonovna Marmeladov</option>
+            <option value="porfiry">Porfiry Petrovich</option>
+            <option value="razumikhin">Dmitri Prokofych Razumikhin</option>
+            <option value="zossimov">Dmitri Prokofych Zossimov</option>
+            <option value="dunya">'Dunya' Avdotya Romanovna Raskolnikova</option>
+            <option value="marmeladov">Semyon Zakharovich Marmeladov</option>
+            <option value="katerina">Katerina Ivanovna Marmeladova</option>
+            <option value="alyona">'Pawnbroker' Alyona Ivanovna</option>
+            <option value="lizaveta">Lizaveta Ivanovna</option>
+            <option value="ilya">'Gunpowder' Ilya Petrovich</option>
+            <option value="nikodim">Nikodim Fomich</option>
+            <option value="luzhin">Pyotr Petrovich Luzhin</option>
+            <option value="svidrigailov">Arkady Ivanovich Svidrigailov</option>
+            <option value="lebezyatnikov">Andrei Semyonovich Lebezyatnikov</option>
+            <option value="marfa">Marfa Petrovna</option>
+            <option value="nastasya">Nastasya Petrovna</option>
+            <option value="praskovya">Praskovya Pavlovna</option>
+            <option value="mikolka">'Mikolka' Nikolai Dementyev</option>
+        </select>
+    </div>
+    <div id="infoPanel" class="hidden">
+        <h2 id="locationTitle" class="location-title"></h2>
+        <p id="shortDesc" class="location-description"></p>
+        <hr>
+        <p id="longDesc" class="location-description"></p>
+        <hr>
+        <div id="bookExcerpt" class="location-excerpt"></div>
+        <hr>
+        <button id="playAudio" class="btn btn-primary">Play Audio</button>
+        <hr>
+        <img id="modernPhoto" class="hidden">
+    </div>
+
+    <!-- Must load before all other script imports -->
+    <script src="../assets/data/story-locations.js"></script>
+
+    <!-- First load Leaflet JavaScript -->
+    <script src="../lib/leaflet/leaflet.js"></script>
+    <!-- Then load zoomhome JavaScript -->
+    <script src="../lib/leaflet.zoomhome/leaflet.zoomhome.min.js"></script>
+
+    <!-- Custom JavaScript files -->
+    <script src="scripts/marker-types.js"></script>
+    <script src="scripts/marker-factory.js"></script>
+    <script src="scripts/marker-manager.js"></script>
+    <script src="scripts/map-context-menu.js"></script>
+    <script src="scripts/map.js"></script>
+    <script src="scripts/timeline.js"></script>
+    <script src="scripts/legend-control.js"></script>
+    <script src="scripts/audio-manager.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
